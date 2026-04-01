@@ -112,6 +112,8 @@ function App() {
         setSelectedWeek(prev => {
             toggleLoading(true);
             prev = 0;
+            const tmp = new Date();
+            setDaySelect(tmp.getDay() == 0 ? 6 : tmp.getDay() - 1)
             setEvent(0);
             return prev;
         });
