@@ -31,6 +31,7 @@ import './month.css'
 import './week.css'
 
 type Prop = {
+    toggleLoading: (b: boolean) => void;
     EventList: EventParse[];
     EventListWeek: EventParse[][];
     daySelected: number;
@@ -39,7 +40,7 @@ type Prop = {
     ChangeWeek: (sign: number) => void;
 }
 
-function CalendarDay({ EventList, EventListWeek, daySelected, setDaySelected, Monday, ChangeWeek }: Prop) {
+function CalendarDay({ toggleLoading, EventList, EventListWeek, daySelected, setDaySelected, Monday, ChangeWeek }: Prop) {
 
     const weekRef = useRef<HTMLDivElement | null>(null);
 
@@ -72,6 +73,7 @@ function CalendarDay({ EventList, EventListWeek, daySelected, setDaySelected, Mo
             el.style.transition = "transform 0.25s ease-out";
 
             if (Math.abs(diff) > 50) {
+                toggleLoading(true);
                 ChangeWeek(diff);    
             }
 

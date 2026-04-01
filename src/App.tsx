@@ -4,6 +4,7 @@ import Menu from './Menu/Menu'
 import Navbar from './Navbar/Navbar'
 import CalendarDay from './Calendar/Day/CalendarDay'
 import CalendarWeek from './Calendar/Week/CalendarWeek'
+import Loader from './Loader'
 
 import type { ScheduleType, Event, EventParse } from './Type'
 import { LocalBackend } from './CapacitorPlugin'
@@ -54,6 +55,7 @@ function parseUTCDate(str: string) {
     return new Date(isoStr);
 }
 
+
 function App() {
 
     const [menuIsOpen, setOpenMenu] = useState(false);
@@ -63,6 +65,7 @@ function App() {
     const [selectedWeek, setSelectedWeek] = useState(0); // 0 meane today
     const [theme, setTheme] = useState("dark"); // 0 meane today
     const [icsUrl, setIcsUrl] = useState("");
+    const [loading, toggleLoading] = useState(true);
 
     const toggleTheme = () => {
         if (theme == "dark") {
@@ -80,26 +83,46 @@ function App() {
         setScheduleType(type);
     }
 
+    const setEvent = (time_dif: number) => {
+        LocalBackend.getUrl().then(data => {
+            setIcsUrl(data.url);
+            LocalBackend.getEvents({ time_difference: time_dif }).then(data => {
+                data.events.sort((a, b) => parseUTCDate(a.start).getTime() - parseUTCDate(b.start).getTime());
+                setEventList(prev => {
+                    prev = data.events.map((RawEvent) => ({
+                        name: RawEvent.title,
+                        start: parseUTCDate(RawEvent.start),
+                        end: parseUTCDate(RawEvent.end),
+                        location: RawEvent.location,
+                        author: RawEvent.author,
+                        color: RawEvent.color,
+                    }))
+                    toggleLoading(false);
+                    return prev;
+                })
+                
+            })
+        })
+    }
+
+    const toTodayFunc = () => {
+        setSelectedWeek(prev => {
+            toggleLoading(true);
+            prev = 0;
+            setEvent(0);
+            return prev;
+        }); 
+    }
+
     const saveIcsUrl = async (url: string) => {
+        toggleLoading(true);
         setIcsUrl(url);
         await LocalBackend.setURL({ url: url })
+        setEvent(selectedWeek);
     }
 
     useEffect(() => {
-        LocalBackend.getUrl().then(data => {
-            setIcsUrl(data.url);
-            LocalBackend.getEvents({ time_difference: selectedWeek }).then(data => {
-                data.events.sort((a, b) => parseUTCDate(a.start).getTime() - parseUTCDate(b.start).getTime());
-                setEventList(data.events.map((RawEvent) => ({
-                    name: RawEvent.title,
-                    start: new Date(RawEvent.start),
-                    end: new Date(RawEvent.end),
-                    location: RawEvent.location,
-                    author: RawEvent.author,
-                    color: RawEvent.color,
-                })))
-            })
-        })
+        setEvent(selectedWeek)
     }, [])
 
     const getEventListDay = () => {
@@ -126,13 +149,18 @@ function App() {
 
         const week: Event[][] = Array.from({ length: 7 }, () => []);
 
+        
         EventList.forEach((event) => {
             const eventDate = new Date(event.start);
+            console.log(event);
+            console.log(event.start);
 
             if (eventDate < monday || eventDate > sunday) return;
 
             const index = (eventDate.getDay() == 0 ? 6 : eventDate.getDay() - 1);
-            week[index].push(event);
+            if(week[index]) {
+                week[index].push(event);
+            }
         });
         return week;
 
@@ -141,7 +169,7 @@ function App() {
     const getGoodCalendar = () => {
         switch (ScheduleType_) {
             case "day":
-                return <CalendarDay EventList={parseEvent(getEventListDay())} EventListWeek={parseEvent2D(getEventListWeek())} daySelected={daySelect} setDaySelected={setDaySelect} Monday={getMonday(getDateActual(selectedWeek))} ChangeWeek={changeWeek} />
+                return <CalendarDay toggleLoading={toggleLoading} EventList={parseEvent(getEventListDay())} EventListWeek={parseEvent2D(getEventListWeek())} daySelected={daySelect} setDaySelected={setDaySelect} Monday={getMonday(getDateActual(selectedWeek))} ChangeWeek={changeWeek} />
             case "week":
                 return <CalendarWeek />
             case "month":
@@ -149,16 +177,30 @@ function App() {
         }
     }
 
-    const changeWeek = (sign: number) => {
+    const changeWeek = async (sign: number) => {
         setSelectedWeek(prev => {
             setDaySelect(0);
-            if (sign > 0) {
-                return prev - 1;
-            } else {
-                return prev + 1;
-            }
-        });
+            const newWeek = prev + (sign > 0 ? -1 : 1);
 
+            LocalBackend.getEvents({ time_difference: newWeek }).then(data => {
+                data.events.sort((a, b) => parseUTCDate(a.start).getTime() - parseUTCDate(b.start).getTime());
+                setEventList(prev => {
+                    prev = data.events.map((RawEvent) => ({
+                        name: RawEvent.title,
+                        start: parseUTCDate(RawEvent.start),
+                        end: parseUTCDate(RawEvent.end),
+                        location: RawEvent.location,
+                        author: RawEvent.author,
+                        color: RawEvent.color,
+                    }))
+                    toggleLoading(false);
+                    return prev;
+                } 
+            )
+            })
+
+            return newWeek;
+        });
     }
 
     return (
@@ -170,9 +212,9 @@ function App() {
                 />
             )}
             <Menu theme={theme} toggleTheme={toggleTheme} isOpen={menuIsOpen} ScheduleType_={ScheduleType_} setSchedule={setSchedule} saveIcsUrl={saveIcsUrl} icsUrl={icsUrl} setIcsUrl={setIcsUrl} toggleMenu={toggleMenu} />
-            <Navbar theme={theme} toggleMenu={toggleMenu} toToday={() => setSelectedWeek(0)} today={getDateActual(0).getDate() + ''} />
+            <Navbar theme={theme} toggleMenu={toggleMenu} toToday={toTodayFunc} today={getDateActual(0).getDate() + ''} />
 
-            {getGoodCalendar()}
+            {loading ? <Loader /> : getGoodCalendar()}
 
         </>
     )

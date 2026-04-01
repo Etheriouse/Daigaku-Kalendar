@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">daigaku-kalendar</string>
-    <string name="title_activity_main">daigaku-kalendar</string>
+    <string name="app_name">Daigaku Kalendar</string>
+    <string name="title_activity_main">Daigaku Kalendar</string>
     <string name="package_name">daigaku.kalendar.app</string>
     <string name="custom_url_scheme">daigaku.kalendar.app</string>
 </resources>

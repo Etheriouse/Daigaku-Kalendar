@@ -135,12 +135,12 @@ const style: any = {
 
     inputBox: {
         display: "flex",
+        flexDirection: "column",
         gap: "10px",
         marginTop: "20px",
     },
 
     input: {
-        flex: 1,
         padding: "10px",
         borderRadius: "8px",
         border: "none",
@@ -149,6 +149,7 @@ const style: any = {
 
     button: {
         padding: "10px 15px",
+        width: '40%',
         borderRadius: "8px",
         border: "none",
         cursor: "pointer",
