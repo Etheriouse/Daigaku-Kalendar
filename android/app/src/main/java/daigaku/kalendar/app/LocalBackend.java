@@ -85,6 +85,51 @@ public class LocalBackend extends Plugin {
         return map;
     }
 
+    private void saveConfigTheme(String Theme) {
+        Context context = getContext();
+        JSObject j = new JSObject();
+        j.put("theme", Theme);
+
+        try {
+            FileOutputStream fos = context.openFileOutput("config_theme.json", Context.MODE_PRIVATE);
+            String jstring = j.toString();
+            fos.write(jstring.getBytes("UTF-8"));
+            fos.close();
+        } catch (IOException  e) {
+            e.printStackTrace();
+        }
+    }
+
+    private String getConfigTheme() {
+        String theme = "";
+        Context context = getContext();
+
+        StringBuilder sb = new StringBuilder();
+        try {
+            File file = new File(context.getFilesDir(), "config_theme.json");
+
+            if (!file.exists()) {
+                saveConfigTheme("dark"); // ou valeur par défaut
+                return getConfigTheme();
+            }
+
+            FileInputStream fi = context.openFileInput("config_theme.json");
+
+            BufferedReader r = new BufferedReader(new InputStreamReader(fi, "UTF-8"));
+            String line;
+            while ((line = r.readLine()) != null) {
+                sb.append(line);
+            }
+            r.close();
+            JSObject j = new JSObject(sb.toString());
+            theme = j.get("theme").toString();
+        } catch (IOException | JSONException e) {
+            e.printStackTrace();
+        }
+        return theme;
+    }
+
+
     private void saveConfigUrl(String url) {
         Context context = getContext();
         JSObject j = new JSObject();
@@ -99,7 +144,6 @@ public class LocalBackend extends Plugin {
             e.printStackTrace();
         }
     }
-
     private String getConfigUrl() {
         String url = "";
         Context context = getContext();
@@ -122,6 +166,7 @@ public class LocalBackend extends Plugin {
             r.close();
             JSObject j = new JSObject(sb.toString());
             url = j.get("url").toString();
+//            theme = j.get("theme").toString();
         } catch (IOException | JSONException e) {
             e.printStackTrace();
         }
@@ -143,6 +188,22 @@ public class LocalBackend extends Plugin {
         System.out.println("-=-=-=-=-=-===========--------------------------=--=--=-=-==--=-=-=-==-=-=-=-");
         System.out.println(url);
         result.put("url", url);
+        call.resolve(result);
+    }
+
+    @PluginMethod
+    public void setTheme(PluginCall call) {
+        String theme = call.getString("theme");
+        saveConfigTheme(theme);
+        reader.setURLICS(theme);
+        call.resolve();
+    }
+
+    @PluginMethod
+    public void getTheme(PluginCall call) {
+        JSObject result = new JSObject();
+        String theme = getConfigTheme();
+        result.put("theme", theme);
         call.resolve(result);
     }
 

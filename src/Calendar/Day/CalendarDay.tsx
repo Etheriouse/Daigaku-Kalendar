@@ -159,10 +159,13 @@ function CalendarDay({ toggleLoading, EventList, EventListWeek, daySelected, set
                                     </div>
                                     <div className="event-description-div">
                                         <div>
-                                            {event.start} - {event.end} {event.location}
+                                            {event.start} - {event.end}
                                         </div>
                                         <div>
-                                            {event.author}
+                                            {event.location}
+                                        </div>
+                                         <div>
+                                            {event.description}
                                         </div>
 
                                     </div>

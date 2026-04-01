@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState, useEffect } from 'react'
 
 import Menu from './Menu/Menu'
@@ -20,7 +21,7 @@ function parseEvent(EventList: Event[]): EventParse[] {
         end: parseDate(event.end),
         day: event.start.getDay(),
         location: event.location,
-        author: event.author,
+        description: event.description,
         color: event.color,
     }));
 }
@@ -36,7 +37,7 @@ function getMonday(date: Date) {
 
     const diff = date.getDate() - day + (day === 0 ? -6 : 1);
 
-    return new Date(date.setDate(diff));
+    return new Date(new Date(date).setDate(diff));
 }
 
 function getDateActual(week: number) {
@@ -94,13 +95,13 @@ function App() {
                         start: parseUTCDate(RawEvent.start),
                         end: parseUTCDate(RawEvent.end),
                         location: RawEvent.location,
-                        author: RawEvent.author,
+                        description: RawEvent.description,
                         color: RawEvent.color,
                     }))
                     toggleLoading(false);
                     return prev;
                 })
-                
+
             })
         })
     }
@@ -111,7 +112,7 @@ function App() {
             prev = 0;
             setEvent(0);
             return prev;
-        }); 
+        });
     }
 
     const saveIcsUrl = async (url: string) => {
@@ -123,6 +124,9 @@ function App() {
 
     useEffect(() => {
         setEvent(selectedWeek)
+        LocalBackend.getTheme().then(data => {
+            setTheme(data.theme);
+        })
     }, [])
 
     const getEventListDay = () => {
@@ -149,16 +153,23 @@ function App() {
 
         const week: Event[][] = Array.from({ length: 7 }, () => []);
 
-        
+        const isSameWeek = (eventDate: Date, monday: Date) => {
+            const eventMonday = getMonday(eventDate);
+
+            return monday.getFullYear() === eventMonday.getFullYear() &&
+                monday.getMonth() === eventMonday.getMonth() &&
+                monday.getDate() === eventMonday.getDate()
+        };
+
+
         EventList.forEach((event) => {
             const eventDate = new Date(event.start);
-            console.log(event);
-            console.log(event.start);
 
-            if (eventDate < monday || eventDate > sunday) return;
+            if (!isSameWeek(eventDate, monday)) return;
 
             const index = (eventDate.getDay() == 0 ? 6 : eventDate.getDay() - 1);
-            if(week[index]) {
+            console.log(`event day: ${eventDate.getDay()} result index: ${index}`)
+            if (week[index]) {
                 week[index].push(event);
             }
         });
@@ -190,13 +201,13 @@ function App() {
                         start: parseUTCDate(RawEvent.start),
                         end: parseUTCDate(RawEvent.end),
                         location: RawEvent.location,
-                        author: RawEvent.author,
+                        description: RawEvent.description,
                         color: RawEvent.color,
                     }))
                     toggleLoading(false);
                     return prev;
-                } 
-            )
+                }
+                )
             })
 
             return newWeek;

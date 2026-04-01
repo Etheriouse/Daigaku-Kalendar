@@ -1,8 +1,10 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import '../dark.css'
 import '../light.css'
 import './Menu.css'
 
 import type { ScheduleType } from '../Type.ts';
+import { LocalBackend } from '../CapacitorPlugin.ts';
 
 type Props = {
     theme: string;
@@ -59,7 +61,11 @@ function Menu({ theme, toggleTheme, isOpen, ScheduleType_, setSchedule, icsUrl, 
                     Dark
                 </h3>
                 <div
-                    onClick={toggleTheme}
+                    onClick={() => {
+                        LocalBackend.setTheme({theme: theme == "dark" ? "light" : theme })
+                        toggleTheme();
+
+                    }}
                     style={{ ...style.toggleButtonDiv1, background: theme == "dark" ? "#444" : "#ccc" }}
                 >
                     <div
