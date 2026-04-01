@@ -20,6 +20,7 @@ import java.util.List;
 
 public class CalendarWidget extends AppWidgetProvider {
 
+    // TODO A REFAIRE AVEC LA LECTURE DU CONFIG URL + il est pas decter sur mon telephone la
     private ICSReader reader = new ICSReader();
     @Override
     public void onUpdate(Context context, AppWidgetManager manager, int[] widgetIds) {
