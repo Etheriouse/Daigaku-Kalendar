@@ -4,7 +4,6 @@ import '../light.css'
 import './Menu.css'
 
 import type { ScheduleType } from '../Type.ts';
-import { LocalBackend } from '../CapacitorPlugin.ts';
 
 type Props = {
     theme: string;
@@ -18,12 +17,118 @@ type Props = {
     setIcsUrl: (url: string) => void;
 };
 
+
 function Menu({ theme, toggleTheme, isOpen, ScheduleType_, setSchedule, icsUrl, setIcsUrl, saveIcsUrl, toggleMenu }: Props) {
 
+    const anticolor = theme == 'dark' ? '#1a1a1a' : 'white'
+    const color = theme == 'dark' ? 'white' : '#1a1a1a'
+
     const items = [
-        { id: "month", label: "Mois", icon: "🗓" },
-        { id: "week", label: "Semaine", icon: "📅" },
-        { id: "day", label: "Jour", icon: "🕑" },
+        {
+            id: "week", label: "Week", icon: <svg width="180" height="150" viewBox="0 0 180 150" style={{width: "25px", height: "25px"}}>
+                <rect
+                    x="50"
+                    y="3"
+                    width="10"
+                    height="80"
+                    rx="5"
+                    ry="5"
+                    fill={color}
+                />
+
+                <rect
+                    x="120"
+                    y="3"
+                    width="10"
+                    height="80"
+                    rx="5"
+                    ry="5"
+                    fill={color}
+                />
+
+                <rect
+                    x="12"
+                    y="12"
+                    width="155"
+                    height="70"
+                    rx="20"
+                    ry="20"
+                    fill={color}
+                />
+                <rect
+                    x="10"
+                    y="30"
+                    width="160"
+                    height="110"
+                    rx="20"
+                    ry="20"
+                    fill={color}
+                    stroke={anticolor}
+                    stroke-width="5"
+                />
+                <rect
+                    x="30"
+                    y="60"
+                    width="120"
+                    height="7"
+                    rx="5"
+                    ry="5"
+                    fill={anticolor}
+                />
+            </svg>
+        },
+        {
+            id: "day", label: "Day", icon: <svg width="180" height="150" viewBox="0 0 180 150" style={{width: "25px", height: "25px"}}>
+                <rect
+                    x="50"
+                    y="3"
+                    width="10"
+                    height="80"
+                    rx="5"
+                    ry="5"
+                    fill={color}
+                />
+
+                <rect
+                    x="120"
+                    y="3"
+                    width="10"
+                    height="80"
+                    rx="5"
+                    ry="5"
+                    fill={color}
+                />
+
+                <rect
+                    x="10"
+                    y="12"
+                    width="160"
+                    height="130"
+                    rx="20"
+                    ry="20"
+                    fill={color}
+
+                />
+                <rect
+                    x="25"
+                    y="37"
+                    width="130"
+                    height="90"
+                    rx="15"
+                    ry="15"
+                    fill={anticolor}
+                />
+                <rect
+                    x="40"
+                    y="50"
+                    width="10"
+                    height="10"
+                    rx="5"
+                    ry="5"
+                    fill={color}
+                />
+            </svg>
+        },
     ] as const;
 
     return (
@@ -62,9 +167,7 @@ function Menu({ theme, toggleTheme, isOpen, ScheduleType_, setSchedule, icsUrl, 
                 </h3>
                 <div
                     onClick={() => {
-                        LocalBackend.setTheme({theme: theme == "dark" ? "light" : theme })
                         toggleTheme();
-
                     }}
                     style={{ ...style.toggleButtonDiv1, background: theme == "dark" ? "#444" : "#ccc" }}
                 >
@@ -88,7 +191,7 @@ function Menu({ theme, toggleTheme, isOpen, ScheduleType_, setSchedule, icsUrl, 
                             ...(ScheduleType_ === item.id ? style.active : {}),
                         }}
                     >
-                        <span>{item.icon} {item.label}</span>
+                        <span style={{display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: '15px'}}>{item.icon} {item.label}</span>
                     </div>
                 ))}
             </div>

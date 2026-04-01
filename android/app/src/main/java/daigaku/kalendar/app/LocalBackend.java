@@ -90,6 +90,8 @@ public class LocalBackend extends Plugin {
         JSObject j = new JSObject();
         j.put("theme", Theme);
 
+        System.out.printf("eft bro na pas comprit %s %s\n", Theme, j.toString());
+
         try {
             FileOutputStream fos = context.openFileOutput("config_theme.json", Context.MODE_PRIVATE);
             String jstring = j.toString();
@@ -195,7 +197,6 @@ public class LocalBackend extends Plugin {
     public void setTheme(PluginCall call) {
         String theme = call.getString("theme");
         saveConfigTheme(theme);
-        reader.setURLICS(theme);
         call.resolve();
     }
 

@@ -71,8 +71,10 @@ function App() {
     const toggleTheme = () => {
         if (theme == "dark") {
             setTheme("light");
+            LocalBackend.setTheme({theme: "light" })
         } else {
             setTheme("dark")
+            LocalBackend.setTheme({theme: "dark" })
         }
     }
 
@@ -168,7 +170,6 @@ function App() {
             if (!isSameWeek(eventDate, monday)) return;
 
             const index = (eventDate.getDay() == 0 ? 6 : eventDate.getDay() - 1);
-            console.log(`event day: ${eventDate.getDay()} result index: ${index}`)
             if (week[index]) {
                 week[index].push(event);
             }
@@ -183,8 +184,6 @@ function App() {
                 return <CalendarDay toggleLoading={toggleLoading} EventList={parseEvent(getEventListDay())} EventListWeek={parseEvent2D(getEventListWeek())} daySelected={daySelect} setDaySelected={setDaySelect} Monday={getMonday(getDateActual(selectedWeek))} ChangeWeek={changeWeek} />
             case "week":
                 return <CalendarWeek />
-            case "month":
-                return <></>
         }
     }
 

@@ -164,10 +164,6 @@ function CalendarDay({ toggleLoading, EventList, EventListWeek, daySelected, set
                                         <div>
                                             {event.location}
                                         </div>
-                                         <div>
-                                            {event.description}
-                                        </div>
-
                                     </div>
                                 </div>
                             </div>
