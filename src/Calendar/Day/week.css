@@ -1,0 +1,96 @@
+#month-div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    z-index: 10;
+    position: relative;
+}
+
+#bar-bottom-week {
+    border: 1px gray solid;
+    margin-top: 6%;
+}
+
+#today-div-week {
+    height: 100%;
+    border-radius: 5px;
+}
+
+.not-today-div-week {
+    padding: 3%;
+    height: 75px;
+    margin-top: 5%;
+    font-weight: 500;
+    font-size: large;
+}
+
+#week-day-number {
+    z-index: 10;
+    position: relative;
+    font-size: 15px;
+    font-weight: 500;
+    margin-left: 1%;
+    margin-right: 1%;
+    display: flex;
+    flex-direction: row;
+
+    transition: transform 0.2s ease-out;
+    touch-action: none;
+}
+
+#weeks-div {
+    font-size: 15px;
+    font-weight: 500;
+    margin-left: 1%;
+    margin-right: 1%;
+    margin-top: 2%;
+    display: flex;
+    flex-direction: row;
+
+    transition: transform 0.2s ease-out;
+    touch-action: none;
+}
+
+.day-div {
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    
+    margin-right: 1%;
+    margin-left: 1%;
+}
+
+.name-day-div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    font-size: larger;
+    font-weight: 500;
+}
+
+.number-day-div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.event-list-div {
+    padding-top: 10%;
+}
+
+.event-bis {
+    margin-top: 5%;
+    margin-bottom: 5%;
+    border-radius: 5px;
+    height: 7px;
+    width: auto;
+}
+
+#bar-bottom-event {
+    margin-bottom: 5%;
+}

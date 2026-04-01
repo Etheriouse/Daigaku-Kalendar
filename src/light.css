@@ -1,0 +1,79 @@
+body.light {
+    background-color: #f5f5f5;
+    color: #111;
+}
+
+/* navbar */
+body.light #nav-bar {
+    background-color: #ffffff;
+}
+
+/* icônes SVG */
+body.light svg line,
+body.light svg circle {
+    stroke: #111;
+}
+
+/* today span */
+body.light #today-span {
+    border: 2px solid #111;
+    color: #111;
+}
+
+/* loader */
+body.light .loader {
+    border: 5px solid #ddd;
+    border-top: 5px solid #111;
+}
+
+/* semaines */
+body.light #bar-bottom-week,
+body.light #bar-bottom-event {
+    border: 1px solid #ccc;
+}
+
+body.light .not-today-div-week {
+    border: solid rgba(0, 0, 0, 0.1) 2px;
+}
+
+body.light #today-div-week {
+    border: solid #111 2px !important;
+}
+
+/* event list */
+body.light .event-description {
+    color: #555;
+}
+
+body.light #event-list {
+    background-color: #fafafa;
+}
+
+/* event color */
+body.light .event-color-div {
+    background-color: rgb(0, 110, 200);
+}
+
+body.light .line {
+    border: #ccc solid 1px;
+}
+
+
+/* buger menu */
+
+body.light #burger-menu {
+    color: black;
+    background-color: #ffffff;
+}
+
+body.light #button-url-ics {
+    background-color: #6382f4;
+}
+
+body.light #active-selected-menu-burger {
+    background-color: #fafafa;
+}
+
+body.light #input-url-ics {
+    background-color: #ddd;
+}

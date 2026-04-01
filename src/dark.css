@@ -1,0 +1,87 @@
+body.dark {
+    background-color: #000;
+    color: #fff;
+}
+
+/* navbar */
+body.dark #nav-bar {
+    background-color: #000;
+}
+
+/* icônes SVG */
+body.dark svg line,
+body.dark svg circle {
+    stroke: #fff;
+}
+
+/* today span */
+body.dark #today-span {
+    border: 2px solid #fff;
+    color: #fff;
+}
+
+/* loader */
+body.dark .loader {
+    border: 5px solid #2a2a2a;
+    border-top: 5px solid #ffffff;
+}
+
+/* semaines */
+body.dark #bar-bottom-week,
+body.dark #bar-bottom-event {
+    border: 1px solid #444;
+}
+
+body.dark .not-today-div-week {
+    border: solid rgba(255, 255, 255, 0) 2px;
+}
+
+body.dark #today-div-week {
+    border: solid #444 2px !important;
+}
+
+/* event list */
+body.dark .event-description {
+    color: #999;
+}
+
+body.dark #event-of-day-selected {
+    background-color: #000;
+}
+
+body.dark #month-div { 
+    background-color: #000;
+}
+
+body.dark #week-day-number {
+    background-color: #000;
+}
+
+body.dark #nav-bar {
+    background-color: #000;
+}
+/* event color */
+body.dark .event-color-div {
+    background-color: rgb(7, 142, 219);
+}
+
+body.dark .line {
+    border: #555 solid 1px;
+}
+
+/* burger menu */
+
+body.dark #burger-menu {
+    color: white;
+    background-color: #111;
+}
+
+body.dark #button-url-ics {
+    background-color: #6382f4;
+}
+
+body.dark #active-selected-menu-burger {
+    background-color: #2a2a2a;
+}
+
+

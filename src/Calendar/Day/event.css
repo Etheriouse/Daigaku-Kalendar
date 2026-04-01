@@ -1,0 +1,55 @@
+#event-list {
+    padding: 5%;
+}
+
+.event-div {
+    cursor: pointer;
+    margin-bottom: 5%;
+}
+
+.event-div-div {
+    display: flex;
+    flex-direction: row;
+}
+
+.event-div-div>div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.event-start-hour {
+    font-size: 18px;
+    margin-right: 3%;
+}
+
+.event-color-div-div {
+    margin-right: 2%;
+
+}
+
+.event-color-div {
+    border-radius: 5px;
+    height: 25px;
+    width: 6px;
+}
+
+.event-description {
+    margin-top: 1%;
+    display: flex;
+    flex-direction: row;
+}
+
+.event-description-div {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.event-title {
+    font-size: 18px;
+}
+
+.shadow-tab-div {
+    visibility: hidden;
+}

@@ -1,0 +1,12 @@
+#event-of-day-selected {
+    padding-top: 1%;
+}
+
+#main-scroll-month {
+    overflow-y: auto;
+    height: 80vh;
+}
+
+#main-scroll-month::-webkit-scrollbar {
+    display: none;
+}

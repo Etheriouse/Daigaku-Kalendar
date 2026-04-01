@@ -1,0 +1,7 @@
+#type-schedule-selected {
+    font-weight: 600;
+}
+
+.type-schedule:hover {
+    transform: translateX(5px);
+}
