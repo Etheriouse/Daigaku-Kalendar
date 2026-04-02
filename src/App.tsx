@@ -16,7 +16,7 @@ function parseDate(date: Date): string {
 
 function parseEvent(EventList: Event[]): EventParse[] {
     return EventList.map((event) => ({
-        title: event.name,
+        title: event.title,
         start: parseDate(event.start),
         end: parseDate(event.end),
         day: event.start.getDay(),
@@ -60,7 +60,7 @@ function parseUTCDate(str: string) {
 function App() {
 
     const [menuIsOpen, setOpenMenu] = useState(false);
-    const [ScheduleType_, setScheduleType] = useState<ScheduleType>("day");
+    const [ScheduleType_, setScheduleType] = useState<ScheduleType>("week");
     const [EventList, setEventList] = useState<Event[]>([]);
     const [daySelect, setDaySelect] = useState(0);
     const [selectedWeek, setSelectedWeek] = useState(0); // 0 meane today
@@ -93,7 +93,7 @@ function App() {
                 data.events.sort((a, b) => parseUTCDate(a.start).getTime() - parseUTCDate(b.start).getTime());
                 setEventList(prev => {
                     prev = data.events.map((RawEvent) => ({
-                        name: RawEvent.title,
+                        title: RawEvent.title,
                         start: parseUTCDate(RawEvent.start),
                         end: parseUTCDate(RawEvent.end),
                         location: RawEvent.location,
@@ -185,7 +185,7 @@ function App() {
             case "day":
                 return <CalendarDay toggleLoading={toggleLoading} EventList={parseEvent(getEventListDay())} EventListWeek={parseEvent2D(getEventListWeek())} daySelected={daySelect} setDaySelected={setDaySelect} Monday={getMonday(getDateActual(selectedWeek))} ChangeWeek={changeWeek} />
             case "week":
-                return <CalendarWeek />
+                return <CalendarWeek toggleLoading={toggleLoading} EventListWeek={getEventListWeek()} Monday={getMonday(getDateActual(selectedWeek))} ChangeWeek={changeWeek} />
         }
     }
 
@@ -198,7 +198,7 @@ function App() {
                 data.events.sort((a, b) => parseUTCDate(a.start).getTime() - parseUTCDate(b.start).getTime());
                 setEventList(prev => {
                     prev = data.events.map((RawEvent) => ({
-                        name: RawEvent.title,
+                        title: RawEvent.title,
                         start: parseUTCDate(RawEvent.start),
                         end: parseUTCDate(RawEvent.end),
                         location: RawEvent.location,

@@ -49,7 +49,7 @@ body.dark #event-of-day-selected {
     background-color: #000;
 }
 
-body.dark #month-div { 
+body.dark #month-div {
     background-color: #000;
 }
 
@@ -60,6 +60,7 @@ body.dark #week-day-number {
 body.dark #nav-bar {
     background-color: #000;
 }
+
 /* event color */
 body.dark .event-color-div {
     background-color: rgb(7, 142, 219);
@@ -85,3 +86,25 @@ body.dark #active-selected-menu-burger {
 }
 
 
+/* week calendar event */
+
+body.dark #matrix-border-line {
+    border-top: solid #444 1px !important;
+}
+
+body.dark .left-border-matrix-day {
+    border-left: solid #444 1px !important;
+}
+
+body.dark .column-day-event-case {
+    border-right: solid #444 1px !important;
+    border-bottom: solid #444 1px !important;
+}
+
+body.dark .first-case.column-day-event-case-demi {
+    border-bottom: dotted #444 2px !important;
+}
+
+body.dark .first-column.column-day-event-case {
+    border-left: solid #444 1px !important;
+}

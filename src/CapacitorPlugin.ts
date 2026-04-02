@@ -12,9 +12,9 @@ export interface LocalBackendPluginCapacitor {
 
 export const LocalBackend = registerPlugin<LocalBackendPluginCapacitor>(
     'LocalBackend',
-    {
-        web: () => import('./WebTest').then(m => new m.MyNativeWeb()),
-    }
+    // {
+    //     web: () => import('./WebTest').then(m => new m.MyNativeWeb()),
+    // }
 );
 
 

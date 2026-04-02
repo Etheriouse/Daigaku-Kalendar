@@ -77,3 +77,25 @@ body.light #active-selected-menu-burger {
 body.light #input-url-ics {
     background-color: #ddd;
 }
+
+
+body.light #matrix-border-line {
+    border-top: solid #ccc 1px !important;
+}
+
+body.light .left-border-matrix-day {
+    border-left: solid #ccc 1px !important;
+}
+
+body.light .column-day-event-case {
+    border-right: solid #ccc 1px !important;
+    border-bottom: solid #ccc 1px !important;
+}
+
+body.light .first-case.column-day-event-case-demi {
+    border-bottom: dotted #ccc 2px !important;
+}
+
+body.light .first-column.column-day-event-case {
+    border-left: solid #ccc 1px !important;
+}
