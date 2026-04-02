@@ -10,6 +10,11 @@ export interface LocalBackendPluginCapacitor {
     getEvents(data: {time_difference: number}): Promise<{events: EventRaw[]}>;
 }
 
-export const LocalBackend = registerPlugin<LocalBackendPluginCapacitor>('LocalBackend')/*, {
-    web: () => import('./MyNative').then(m => new m.MyNativeWeb()),
-});*/
+export const LocalBackend = registerPlugin<LocalBackendPluginCapacitor>(
+    'LocalBackend',
+    {
+        web: () => import('./WebTest').then(m => new m.MyNativeWeb()),
+    }
+);
+
+
